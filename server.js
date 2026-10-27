@@ -3,6 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 
+// Import route files
+import authRoutes from "./routes/authRoutes.js";
+
 // Import error middleware
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
@@ -29,6 +32,9 @@ app.get("/api", (req, res) => {
         version: "1.0.0"
     });
 });
+
+// Mount Resource Routes
+app.use("/api/auth", authRoutes);
 
 // Centralized 404 and Error Handling Middleware
 app.use(notFound);
