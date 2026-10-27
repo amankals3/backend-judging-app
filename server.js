@@ -2,9 +2,12 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import Contest from "./models/Contest.js";
 
 // Import route files
 import authRoutes from "./routes/authRoutes.js";
+import contestRoutes from "./routes/contestRoutes.js";
+import exploreRoutes from "./routes/exploreRoutes.js";
 
 // Import error middleware
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
@@ -14,6 +17,9 @@ dotenv.config();
 
 // Connect to MongoDB Database
 await connectDB();
+
+// Automatically ensure all stored contest statuses match current dates
+await Contest.syncContestStatusesInDB();
 
 const app = express();
 
@@ -33,8 +39,15 @@ app.get("/api", (req, res) => {
     });
 });
 
-// Mount Resource Routes
+// Mount Resource Routes (Developer 1 domain)
 app.use("/api/auth", authRoutes);
+app.use("/api/contests", contestRoutes);
+app.use("/api/explore", exploreRoutes);
+
+// --- Scope for Developer 2:
+// app.use("/api/entries", entryRoutes);
+// app.use("/api/scores", scoreRoutes);
+// app.use("/api/leaderboard", leaderboardRoutes);
 
 // Centralized 404 and Error Handling Middleware
 app.use(notFound);
