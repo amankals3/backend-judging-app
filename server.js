@@ -8,6 +8,9 @@ import Contest from "./models/Contest.js";
 import authRoutes from "./routes/authRoutes.js";
 import contestRoutes from "./routes/contestRoutes.js";
 import exploreRoutes from "./routes/exploreRoutes.js";
+import entryRoutes from "./routes/entryRoutes.js";
+import scoreRoutes from "./routes/scoreRoutes.js";
+import leaderboardRoutes from "./routes/leaderboardRoutes.js";
 
 // Import error middleware
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
@@ -39,15 +42,13 @@ app.get("/api", (req, res) => {
     });
 });
 
-// Mount Resource Routes (Developer 1 domain)
+// Mount Resource Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/contests", contestRoutes);
 app.use("/api/explore", exploreRoutes);
-
-// --- Scope for Developer 2:
-// app.use("/api/entries", entryRoutes);
-// app.use("/api/scores", scoreRoutes);
-// app.use("/api/leaderboard", leaderboardRoutes);
+app.use("/api/entries", entryRoutes);
+app.use("/api/scores", scoreRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
 
 // Centralized 404 and Error Handling Middleware
 app.use(notFound);
