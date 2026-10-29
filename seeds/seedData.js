@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Contest from "../models/Contest.js";
 import ExplorePhoto from "../models/ExplorePhoto.js";
-import JudgeInvite from "../models/JudgeInvite.js";
 
 dotenv.config();
 
@@ -196,13 +195,6 @@ const seedDB = async () => {
         } else {
             console.log(`ℹ Explore photos collection already has ${exploreCount} items. Skipping.`);
         }
-
-        // Seed Sample Judge Invites
-        const defaultInvites = ["INVITE-JUDGE-001", "INVITE-JUDGE-002", "INVITE-JUDGE-003"];
-        for (const code of defaultInvites) {
-            await JudgeInvite.findOneAndUpdate({ code }, { code }, { upsert: true });
-        }
-        console.log(`✓ Seeded ${defaultInvites.length} sample judge invite codes (${defaultInvites.join(", ")}).`);
 
         console.log("🎉 Database seeding completed successfully!");
         process.exit(0);

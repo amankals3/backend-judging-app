@@ -8,7 +8,7 @@
     "dev": "nodemon server.js",
     "seed": "node seeds/seedData.js",
     "test:routes": "node test-routes.js",
-    "test": "node test-routes.js"
+    "test": "node run-tests-with-server.js"
   },
   "keywords": [],
   "author": "",
